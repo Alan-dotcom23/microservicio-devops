@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'microservicio-java-ecs'
+    # En Spring Boot Actuator, las métricas exponen por defecto en esta ruta:
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['microservice-java:8080']

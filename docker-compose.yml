@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  microservice-java:
+    build: .
+    ports:
+      - "8080:8080"            # Puerto de tu aplicación
+    networks:
+      - devops-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"            # Panel de control de Prometheus
+    networks:
+      - devops-net
+
+networks:
+  devops-net:
+    driver: bridge
