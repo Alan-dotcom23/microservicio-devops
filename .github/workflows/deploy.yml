@@ -80,7 +80,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
-          container-name: subcripciones-container
+          container-name: suscripciones-container
           image: ${{ needs.Quality-and-CI.outputs.image }}
 
       # ---------- POLITICA DE DESPLIEGUE SEGURO (IE6) ----------
