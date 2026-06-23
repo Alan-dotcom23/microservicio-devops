@@ -1,17 +1,18 @@
-# Etapa 1: Compilación (Usando Maven con Java 21)
+# Estructura Multi-stage para un empaquetado optimizado
 FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
 WORKDIR /app
-COPY suscipciones_fullstack1/pom.xml .
-COPY suscipciones_fullstack1/src ./src
+
+# Como los archivos ahora están en la raíz, los copiamos directamente
+COPY pom.xml .
+COPY src ./src
+
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Imagen de ejecución ligera (JRE de Java 21)
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-# El archivo .jar generado se llamará basado en tu artifactId y versión del pom
-COPY --from=build /app/target/subcripciones-0.0.1-SNAPSHOT.jar app.jar
 
-# Spring Boot corre por defecto en el puerto 8080
+# Copiamos el archivo JAR compilado desde la etapa de build
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
-
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
