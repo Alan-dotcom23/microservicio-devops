@@ -89,3 +89,5 @@ docker run -d -p 8080:8080 --name api-suscripciones suscripciones-api:v1
 • Institución: Duoc UC
 
 • Versión: 1.0 (Marzo 2026)
+
+# Actualizaci�n Pipeline AWS
